@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Champions
+{% endblock %}
+
+{% block main %}
+
+    {% for summoner, champion in names %}
+        <div class="mb-3">
+            <div class="mb-3">
+            <b>{{ summoner["summoner_name"] }}</b> is playing <b>{{ champion["champion_name"] }}</b>
+            </div>
+            {{ champion["champion_name"] }} is level {{ champion["level"] }} and has score {{ champion["kills"] }}/{{ champion["deaths"] }}/{{ champion["assists"] }}
+            with {{ champion["creepscore"] }} cs (floored to nearest 10 because riot is weird).
+            <h4>
+                Champion Icon: 
+                <img src="{{ url_for('static', filename='champion_icons/' + champion['champ_img'] ~ '.png') }}" alt="Image {{ i }}">
+            </h4>
+        </div>
+        <div></div>
+        <div></div>
+    {% endfor %}
+
+
+{% endblock %}

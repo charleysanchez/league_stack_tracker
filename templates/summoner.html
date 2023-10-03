@@ -1,0 +1,491 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Summoner
+{% endblock %}
+
+{% block main %}
+    <h2>{{ summoner_id }}'s Most Recent Game:</h2>
+    <h3>Players</h3>
+
+
+
+
+    <div id="__next">
+        <div class="main-info">
+            <div class="match-history">
+                <div class="match-history-games">
+
+                    {% for match in unique_matches %}
+                        {% set outcome = "Defeat" %}
+
+                        {% set active_player = None %}
+
+                        {% for player in players %}
+                            {% if player['match_id'] == match %}
+
+                            {% if player['summoner_name'] == summoner_id %}
+                                {% set active_player = player %}
+
+
+                        {% if active_player['outcome'] == 1 %}
+                            {% set outcome = "Victory" %}
+                        {% endif %}
+                    
+
+
+
+                        <li class="game-item" game-item--SOLORANKED game-item--LOSE>
+                            <div result="LOSE" class="game-top">
+                                <div class="content">
+                                    
+                                    <div class="game-content">
+
+                                        <div class="game">
+                                            <div class="type">
+                                                Ranked Solo
+                                            </div>
+                                            <div class="time-stamp">
+                                                <div class style="position: relative;">
+                                                    20 days ago
+                                                </div>
+                                            </div>
+                                            <div class="bar"></div>
+                                            <div class="result">
+                                                {{ outcome }}
+                                            </div>
+                                            <div class="length">
+                                                {{ active_player['formatted_time'] }}
+                                            </div>
+                                        </div>
+
+                                        <div class="info">
+                                            <div class="flex-container">
+                                                <div class="champion">
+                                                    <div class="icon">
+                                                        <a href="/champions/poop" target="_blank" rel="norefferer">
+                                                            <img src="{{ url_for('static', filename='champion_icons/' + active_player['champ_img'] ~ '.png') }}" alt="Image {{ i }}" width="48" height="48">
+                                                            <span class="numberCircle">{{ active_player['level'] }}</span>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="spells">
+                                                        <div class="spell">
+                                                            <div class style="position: relative;">
+                                                                <img src="{{ url_for('static', filename='summoner_spell_icons/' + active_player.summoner1 ~ '.png') }}" width="22" alt="image" height="22">
+                                                            </div>
+                                                        </div>
+                                                        <div class="spell">
+                                                            <div class style="position: relative;">
+                                                                <img src="{{ url_for('static', filename='summoner_spell_icons/' + active_player.summoner2 ~ '.png') }}" width="22" alt="image" height="22">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="runes">
+                                                        <div class="rune">
+                                                            <div class style="position: relative;"><img src="{{ url_for('static', filename='rune_icons/' + active_player.primary1 ~ '.png') }}" width="22" alt="image" height="22"></div>
+                                                        </div>
+                                                        <div class="rune">
+                                                            <div class style="position: relative;"><img src="{{ url_for('static', filename='rune_icons/' + active_player.style2 ~ '.png') }}" width="22" alt="image" height="22"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                
+                                                <div class="kda">
+                                                    <div class="k-d-a">
+                                                        <span>{{ active_player['kills'] }}</span> 
+                                                        / 
+                                                        <span class="deaths">{{ active_player['deaths'] }} </span>
+                                                        / 
+                                                        <span>{{ active_player['assists']  }}</span>
+                                                    </div>
+                                                    <div class="ratio1">
+                                                        <span>{{ active_player['ratio'] }}:1</span>
+                                                        KDA
+                                                    </div>
+                                                </div>
+
+                                                <div class="stats">
+
+                                                    <div class="p-kill">
+                                                        Kill participation
+                                                    </div>
+                                                    <div class="ward2">
+                                                        Control Ward {{ active_player.control_wards }} 
+                                                    </div>
+                                                    <div class="cs">
+                                                        CS {{ active_player.creepscore }} ({{ active_player.cs_per_m }})
+                                                    </div>
+                                                    <div class="average-tier">
+                                                        Average Tier
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <div class="items">
+                                                    <ul>
+                                                        {% for i in range (0, 6) %}
+                                                            <li>
+                                                                <div class style="position: relative;">
+                                                                    <img src="{{ url_for('static', filename='item_icons/' + active_player['item' + i|string] ~ '.png') }}" width="22" height="22">
+                                                                </div>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                    <div class="ward1">
+                                                        <div class style="position: relative;">
+                                                            <img src="{{ url_for('static', filename='item_icons/' + active_player['item6'] ~ '.png') }}" width="22" height="22">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                        
+
+                                        <div class="participants">
+                                            <ul>
+                                                {% for player in players if player.team_id == 100 and player.match_id == match %}
+                                                <li class="participant">
+                                                    <div class="icon" style="position: relative;">
+                                                        <img src="{{ url_for('static', filename='champion_icons/' + player['champ_img'] ~ '.png') }}" alt="{{ player.champion_name }}" width="16" height="16">
+                                                    </div>
+                                                    <div class="name">
+                                                        <a href="/summoner/na/{{ player.summoner_name }}" target="_blank" rel="noreferrer">
+                                                            {{ player.summoner_name }}
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                            <ul>
+                                                {% for player in players if player.team_id == 200 and player.match_id == match %}
+                                                <li class="participant">
+                                                    <div class="icon" style="position: relative;">
+                                                        <img src="{{ url_for('static', filename='champion_icons/' + player['champ_img'] ~ '.png') }}" alt="{{ player.champion_name }}" width="16" height="16">
+                                                    </div>
+                                                    <div class="name">
+                                                        <a href="/summoner/na/{{ player.summoner_name }}" target="_blank" rel="noreferrer">
+                                                            {{ player.summoner_name }}
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                
+                                    </div>
+                                </div>
+                                <div class="action">
+                                    <button onclick="toggleDropdown('{{ match }}')" class="detail">
+                                        <img src="https://s-lol-web.op.gg/images/icon/icon-arrow-down-red.svg?v=1695767548184" width="24" alt="More" height="24">
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="{{ match }}" result="LOSE" class="drop-down hidden">
+                                <ul>
+                                    <li result="LOSE">
+                                        <button>Overview</button>
+                                    </li>
+                                </ul>
+
+                                <div>
+                                    <table result="LOSE" class="table-losing">
+                                        <colgroup>
+                                            <col width="44">
+                                            <col width="18">
+                                            <col width="18">
+                                            <col>
+                                            <col width="68">
+                                            <col width="98">
+                                            <col width="120">
+                                            <col width="48">
+                                            <col width="56">
+                                            <col width="175">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4">
+                                                    <span class="result">
+                                                        {{ outcome }}
+                                                        (
+                                                            Blue Team
+                                                        )
+                                                    </span>
+                                                </th>
+                                                <th>Charleyisballer score</th>
+                                                <th>KDA</th>
+                                                <th>Damage</th>
+                                                <th>Wards</th>
+                                                <th>CS</th>
+                                                <th>Item</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                            {% for player in players if player.team_id == 100 and player.match_id == match %}
+        
+                                            <tr result="LOSE" class="overview-player overview-player--LOSE">
+                                                <td class="champion">
+                                                    <a href="/champions/poop" target="_blank" rel="noreferrer">                            
+                                                        <div class style="position: relative;">
+                                                            <img src="{{ url_for('static', filename='champion_icons/' + player['champ_img'] ~ '.png') }}" alt="{{ player.champion_name }}" width="32" height="32">
+                                                        <div class="level">{{ player.level }}</div>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td class="spells">
+                                                    <div class style="position: relative;">
+                                                        <img src="{{ url_for('static', filename='summoner_spell_icons/' + player.summoner1 ~ '.png') }}" alt="image">
+                                                    </div>
+                                                    <div class style="position: relative;">
+                                                        <img src="{{ url_for('static', filename='summoner_spell_icons/' + player.summoner2 ~ '.png') }}" alt="image">
+                                                    </div>
+                                                </td>
+                                                <td class="runes">
+                                                    <div class style="position: relative;">
+                                                        <div class style="position: relative;"><img src="{{ url_for('static', filename='rune_icons/' + player.primary1 ~ '.png') }}" alt="image"></div>                                             
+                                                    </div>
+                                                    <div class style="position: relative;">
+                                                        <div class style="position: relative;"><img src="{{ url_for('static', filename='rune_icons/' + player.style2 ~ '.png') }}" alt="image"></div>                                             
+                                                    </div>
+                                                </td>
+                                                <td class="names">
+                                                    <a href="/summoners/{{ player.summoner_name }}" target="_blank" rel="noreferrer">
+                                                        {{ player.summoner_name }}
+                                                    </a>
+                                                    <div class="tier">
+                                                        Challenger
+                                                    </div>
+                                                </td>
+                                                <td class="charley-score">
+                                                    <div class="wrapper">
+                                                        <div class="score">1</div>
+                                                        <div class="rank">
+                                                            <div class="charley-score-official">10th</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="kdas">
+                                                    <div class="k-d-as">
+                                                        {{ player.kills }}/{{ player.deaths }}/{{ player.assists }}
+                                                    </div>
+                                                    <div class="ratios">
+                                                        {{ player.ratio }}:1
+                                                    </div>
+                                                </td>
+                                                <td class="damage">
+                                                    <div>
+                                                        <div class style="position: relative;">
+                                                            <div class="dealt">{{ player.damage_to_champs }}</div>
+                                                            <div class="progress">
+                                                                <div class="fill" style="width: {{ player['damage_dealt_share'] }}%;"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class style="position: relative;">
+                                                            <div class="taken">{{ player.damage_taken }}</div>
+                                                            <div class="progress--taken">
+                                                                <div class="fill" style="width: {{ player['damage_taken_share'] }}%;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="ward">
+                                                    <div class style="position: relative;">
+                                                        <div>{{ player.control_wards }}</div>
+                                                        <div>{{ player.wards_placed }} / {{ player.wards_killed }}</div>
+                                                    </div>                                  
+                                                </td>
+                                                <td class="cs">
+                                                    <div>{{ player.creepscore }}</div>
+                                                    <div>{{ player.cs_per_m }}/m</div>
+                                                </td>
+                                                <td class="items">
+                                                    {% for i in range(0, 7) %}
+                                                    <li>
+                                                        <div class="item">
+                                                            <div class style="position: relative;">
+                                                                <img src="{{ url_for('static', filename='item_icons/' + player['item' + i|string] ~ '.png') }}" width="22" height="22">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>                              
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>
+
+                                                                            <!-- INSERT THE MATCH INFO LIKE DRAGONS BARONS ETC HERE -->
+
+                                            
+                                    <table result="WIN" class="table-winning">
+                                        <colgroup>
+                                            <col width="44">
+                                            <col width="18">
+                                            <col width="18">
+                                            <col>
+                                            <col width="68">
+                                            <col width="98">
+                                            <col width="120">
+                                            <col width="48">
+                                            <col width="56">
+                                            <col width="175">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="4">
+                                                    <span class="result">
+                                                        {{ outcome }}
+                                                        (
+                                                            Red Team
+                                                        )
+                                                    </span>
+                                                </th>
+                                                <th>Charleyisballer score</th>
+                                                <th>KDA</th>
+                                                <th>Damage</th>
+                                                <th>Wards</th>
+                                                <th>CS</th>
+                                                <th>Item</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                            {% for player in players if player.team_id == 200 and player.match_id == match %}
+        
+                                            <tr result="WIN" class="overview-player overview-player--WIN">
+                                                <td class="champion">
+                                                    <a href="/champions/poop" target="_blank" rel="noreferrer">                            
+                                                        <div class style="position: relative;">
+                                                            <img src="{{ url_for('static', filename='champion_icons/' + player['champ_img'] ~ '.png') }}" alt="{{ player.champion_name }}" width="32" height="32">
+                                                        <div class="level">{{ player.level }}</div>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                                <td class="spells">
+                                                    <div class style="position: relative;">
+                                                        <img src="{{ url_for('static', filename='summoner_spell_icons/' + player.summoner1 ~ '.png') }}" alt="image">
+                                                    </div>
+                                                    <div class style="position: relative;">
+                                                        <img src="{{ url_for('static', filename='summoner_spell_icons/' + player.summoner2 ~ '.png') }}" alt="image">
+                                                    </div>
+                                                </td>
+                                                <td class="runes">
+                                                    <div class style="position: relative;">
+                                                        <div class style="position: relative;"><img src="{{ url_for('static', filename='rune_icons/' + player.primary1 ~ '.png') }}" alt="image"></div>                                             
+                                                    </div>
+                                                    <div class style="position: relative;">
+                                                        <div class style="position: relative;"><img src="{{ url_for('static', filename='rune_icons/' + player.style2 ~ '.png') }}" alt="image"></div>                                             
+                                                    </div>
+                                                </td>
+                                                <td class="names">
+                                                    <a href="/summoners/{{ player.summoner_name }}" target="_blank" rel="noreferrer">
+                                                        {{ player.summoner_name }}
+                                                    </a>
+                                                    <div class="tier">
+                                                        Challenger
+                                                    </div>
+                                                </td>
+                                                <td class="charley-score">
+                                                    <div class="wrapper">
+                                                        <div class="score">1</div>
+                                                        <div class="rank">
+                                                            <div class="charley-score-official">10th</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="kdas">
+                                                    <div class="k-d-as">
+                                                        {{ player.kills }}/{{ player.deaths }}/{{ player.assists }}
+                                                    </div>
+                                                    <div class="ratios">
+                                                        {{ player.ratio }}:1
+                                                    </div>
+                                                </td>
+                                                <td class="damage">
+                                                    <div>
+                                                        <div class style="position: relative;">
+                                                            <div class="dealt">{{ player.damage_to_champs }}</div>
+                                                            <div class="progress">
+                                                                <div class="fill" style="width: {{ player['damage_dealt_share'] }}%"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class style="position: relative;">
+                                                            <div class="taken">{{ player.damage_taken }}</div>
+                                                            <div class="progress--taken">
+                                                                <div class="fill" style="width: {{ player['damage_taken_share'] }}%"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="ward">
+                                                    <div class style="position: relative;">
+                                                        <div>{{ player.control_wards }}</div>
+                                                        <div>{{ player.wards_placed }} / {{ player.wards_killed }}</div>
+                                                    </div>                                  
+                                                </td>
+                                                <td class="cs">
+                                                    <div>{{ player.creepscore }}</div>
+                                                    <div>{{ player.cs_per_m }}/m</div>
+                                                </td>
+                                                <td class="items">
+                                                    {% for i in range(0, 7) %}
+                                                    <li>
+                                                        <div class="item">
+                                                            <div class style="position: relative;">
+                                                                <img src="{{ url_for('static', filename='item_icons/' + player['item' + i|string] ~ '.png') }}" width="22" height="22">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>                              
+                                            {% endfor %}
+
+                                        </tbody>
+                                    </table>                               
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+                            
+
+                    
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        function toggleDropdown(id) {
+            var dropdown = document.getElementById(id);
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+    </script>
+
+
+{% endblock %}

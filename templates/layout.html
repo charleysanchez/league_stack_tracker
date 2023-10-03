@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="dark" style="--main100: #28344E; --main200: #2F436E; --main300: #2F436E; --main400: #4171D6; --main500: #5383E8; --main600: #5383E8; --main700: #5383E8; --main800: #81ACFF; --main900: #81ACFF; --gray0: #31313C; --gray100: #282830; --gray200: #1C1C1F; --gray250: #424254; --gray300: #515163; --gray400: #7B7A8E; --gray500: #9E9EB1; --gray600: #9E9EB1; --gray700: #B7B7C9; --gray800: #B7B7C9; --gray900: #FFF; --red100: #59343B; --red200: #703C47; --red300: #703C47; --red400: #D31A45; --red500: #E84057; --red600: #E84057; --red700: #E84057; --red800: #FF6C81; --red900: #FF6C81; --orange100: #703100; --orange200: #8E3E00; --orange300: #8E3E00; --orange400: #F06F00; --orange500: #FF8200; --orange600: #FF8200; --orange700: #FF8200; --orange800: #FF9F4A; --orange900: #FF9F4A; --yellow100: #4A340E; --yellow200: #76480F; --yellow300: #76480F; --yellow400: #E28400; --yellow500: #EB9C00; --yellow600: #EB9C00; --yellow700: #EB9C00; --yellow800: #FFB900; --yellow900: #FFB900; --green100: #304A1D; --green200: #24662B; --green300: #24662B; --green400: #139020; --green500: #00AE0A; --green600: #00AE0A; --green700: #00AE0A; --green800: #6CC92D; --green900: #6CC92D; --teal100: #1D4346; --teal200: #00666E; --teal300: #00666E; --teal400: #00A399; --teal500: #00BBA3; --teal600: #00BBA3; --teal700: #00BBA3; --teal800: #00D7B0; --teal900: #00D7B0; --blue100: #183955; --blue200: #114882; --blue300: #114882; --blue400: #006DE2; --blue500: #0093FF; --blue600: #0093FF; --blue700: #0093FF; --blue800: #00B8ED; --blue900: #00B8ED; --purple100: #332353; --purple200: #3F2A75; --purple300: #3F2A75; --purple400: #6B42DC; --purple500: #7D59EA; --purple600: #7D59EA; --purple700: #7D59EA; --purple800: #A072FF; --purple900: #A072FF; --pink100: #5F225E; --pink200: #8F178D; --pink300: #8F178D; --pink400: #D932D6; --pink500: #E537A2; --pink600: #D932D6; --pink700: #D932D6; --pink800: #B920B7; --pink900: #B920B7; --bronze100: #3A3734; --bronze200: #52493F; --bronze300: #52493F; --bronze400: #7C6750; --bronze500: #907659; --bronze600: #907659; --bronze700: #907659; --bronze800: #A88A67; --bronze900: #A88A67; --homeDesktop: #1C1C1F; --homeMobile: #1C1C1F;">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>
+        {% block title %}{% endblock %}
+        </title>
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous"> -->
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    </head>
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    <body>
+        {% block body %}{% endblock %}
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    </body>
+</html>

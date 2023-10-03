@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Charley Dev Site
+{% endblock %}
+
+{% block main %}
+    
+    <form action="/champions" method="post">
+        <div class="mb-3">
+            <button type="button" class="btn btn-primary btn-lg" onclick="window.location='champions'">I'm in game, show me them stats!</button>
+        </div>
+    </form>
+
+    <form action="/summoner" class="form-inline" method="post">
+
+    <div class="input-group mb-2 mr-sm-2">
+        <select class="form-select mx-auto w-5" aria-label="Region" name="region">
+
+            <option selected value="NA">NA</option>
+            <option value="EUW">EUW</option>
+            <option value="EUNE">EUNE</option>
+            <option value="KR">KR</option>
+        </select>
+
+        <input class="form-control w-50 mx-auto" name="summoner_id" placeholder="Summoner Name" type="text";>
+      <input class="btn btn-primary w-20" type="submit" value="Submit">
+    </div>
+
+      
+
+    </form>
+
+    
+
+{% endblock %}
+
+{% block body %}
+
+
+{% endblock %}
